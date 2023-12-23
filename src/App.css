@@ -1,0 +1,97 @@
+.App {
+  /* max-width: fit-content; */
+  width:900px;
+  margin:auto
+}
+.Scale{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.active_img {
+  border: 9px solid #00cc00;
+}
+/* .img {
+  border: 9px solid white;
+} */
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.picbox{
+  float: center;
+  margin:20px;
+}
+
+.picboxContainer{
+  overflow: hidden;
+}
+
+.mycomment {
+  margin: 10px 0;
+}
+
+.button{
+  margin:10px;
+}
+
+.Button{
+  margin-left: auto;
+  margin:10px;
+}
+
+.mycomment p {
+  display: inline-block;
+  position: relative; 
+  margin: 0 10px 0 0;
+  padding: 8px;
+  width: 650px;
+  border-radius: 30px;
+  background: #edf1ee;
+  font-size: 15px;
+  }
+
+.mycomment p:after {
+  content: "";
+  position: absolute;
+  top: 3px; 
+  right: -19px;
+  border: 8px solid transparent;
+  border-left: 18px solid #edf1ee;
+  -webkit-transform: rotate(-35deg);
+  transform: rotate(-35deg);
+}
