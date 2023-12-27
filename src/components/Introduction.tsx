@@ -6,8 +6,10 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { TextField } from "@mui/material";
 
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set, push, runTransaction, child } from "firebase/database";
 import { firebaseDb } from "../firebase/index.js";
+import { get } from "http";
+
 
 type Props = {
   userID: string;
@@ -114,16 +116,20 @@ const Introduction: React.FC<Props> = (props) => {
     return dbPath;
   }
 
-
   // ユーザーデータを送信する関数
   function setUserIDAndSend() {
     const dbPath = determineDbPath(Number(props.userAge), props.userGender);
 
-    console.log(dbPath)
-
-    if (!dbPath || fleaMarketDuration === "なし" || fleaMarketExperience === "なし") {
+    // console.log(dbPath)
+    if (!dbPath) {
+      // 年齢または性別が範囲外
+      props.setPageNum(10);
+      return;
+    }
+    if (fleaMarketDuration === "なし" || fleaMarketExperience === "なし") {
       // 年齢または性別が範囲外 or フリマアプリの利用無し
       props.setPageNum(10);
+      return;
     }
     else {
       push(ref(firebaseDb, dbPath), {
@@ -133,9 +139,16 @@ const Introduction: React.FC<Props> = (props) => {
         fleaMarketExperience: fleaMarketExperience,
         fleaMarketDuration: fleaMarketDuration,
       });
-      props.setPageNum(2);
+      get(ref(firebaseDb, dbPath)).then((snapshot) => {console.log(snapshot.val())})
+      runTransaction(ref(firebaseDb, dbPath), (post) => {
+        console.log(post)
+        post.count++;
+        return post;
+      });       
+      props.setPageNum(11);
     }
   }
+
 
   return (
     <div>
@@ -144,7 +157,7 @@ const Introduction: React.FC<Props> = (props) => {
         この実験は、Yahooクラウドソーシングを用いて行う実験です。Yahooクラウドソーシング以外からアクセスした人は、ページを閉じてください。
       </p>
       <p>
-        Yahooクラウドソーシングからアクセスした人は、年齢と性別をそれぞれ入力してから、画面下の「次に進む」ボタンを押してください。
+        Yahooクラウドソーシングからアクセスした人は、年齢、性別、フリマアプリの利用有無、フリマアプリの利用期間をそれぞれ入力してから、画面下の「次に進む」ボタンを押してください。
       </p>
       <p>
         <span style={{ color: "gray" }}>version2022010082001?exp={props.param}</span>

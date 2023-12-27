@@ -11,6 +11,8 @@ import Check from "./components/Check";
 import Concentration from "./components/Concentration";
 import { v4 as uuidv4 } from "uuid";
 
+import Tmp from "./components/tmp";
+
 function App() {
   const [pageNum, setPageNum] = React.useState<any>(1);
   const [userID, setUserID] = React.useState<any>("");
@@ -146,6 +148,15 @@ function App() {
             このページを閉じてください。
           </p>
         </div>
+      )}
+      {pageNum === 11 && (
+        <Tmp
+          userID={userID}
+          userAge = {userAge}
+          userGender= {userGender}
+          param={query["exp"]}
+          setPageNum={setPageNum}
+        />
       )}
     </div>
   );

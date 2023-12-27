@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyD4rsIIAE9-qDnuJRnl0_81RH-SHCeGzNg",
-    authDomain: "font-comparison-a6f26.firebaseapp.com",
-    databaseURL: "https://font-comparison-a6f26-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "font-comparison-a6f26",
-    storageBucket: "font-comparison-a6f26.appspot.com",
-    messagingSenderId: "1058336093468",
-    appId: "1:1058336093468:web:232a35beb12522de0336d9"
-  };
+  apiKey: "AIzaSyBBS6JusRqW86stNr3j1FOe7-6I_5LMCp8",
+  authDomain: "mercari-llm-research.firebaseapp.com",
+  databaseURL: "https://mercari-llm-research-default-rtdb.firebaseio.com",
+  projectId: "mercari-llm-research",
+  storageBucket: "mercari-llm-research.appspot.com",
+  messagingSenderId: "755395628930",
+  appId: "1:755395628930:web:ac27d6f281af2d225a499b"
+};
