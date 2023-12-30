@@ -6,6 +6,7 @@ import queryString from 'query-string';
 
 import Explanation from "./components/Explanation";
 import Exam from "./components/Exam";
+import Questionare from "./components/Questionare";
 import Introduction from "./components/Introduction";
 import Check from "./components/Check";
 import Concentration from "./components/Concentration";
@@ -15,6 +16,7 @@ import Tmp from "./components/tmp";
 
 function App() {
   const [pageNum, setPageNum] = React.useState<any>(1);
+  const [dbCount, setDbCount] = React.useState<any>(0);
   const [userID, setUserID] = React.useState<any>("");
   const [userAge, setUserAge] = React.useState<any>("");
   const [userGender, setUserGender] = React.useState<any>();
@@ -85,18 +87,28 @@ function App() {
 
   return (
     <div className="App">
-      {pageNum === 1 && (
-        <Introduction
+        {pageNum === 1 && (
+          <Introduction
+            userID={userID}
+            setUserID={setUserID}
+            setPageNum={setPageNum}
+            param={query["exp"]}
+            pageNum={pageNum}
+          />
+        )}
+      {pageNum === 2 && (
+        <Questionare
           userID={userID}
           userAge = {userAge}
           userGender= {userGender}
           param={query["exp"]}
+          setDbCount={setDbCount}
           setUserAge = {setUserAge}
           setUserGender = {setUserGender}
           setPageNum={setPageNum}
         />
       )}
-      {pageNum === 2 && (
+      {pageNum === 15 && (
         <Explanation
           userGender = {userGender}
           userAge = {userAge}
@@ -152,6 +164,7 @@ function App() {
       {pageNum === 11 && (
         <Tmp
           userID={userID}
+          dbCount={dbCount}
           userAge = {userAge}
           userGender= {userGender}
           param={query["exp"]}

@@ -1,237 +1,141 @@
 import React, { useEffect, useState, useRef } from "react";
 import Button from "@mui/material/Button";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { TextField } from "@mui/material";
-
-import { getDatabase, ref, set, push, runTransaction, child } from "firebase/database";
-import { firebaseDb } from "../firebase/index.js";
-import { get } from "http";
-
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import { Checkbox, TextField } from "@mui/material";
 
 type Props = {
   userID: string;
-  userAge: string;
-  userGender: string;
-  param: string | (string | null)[] | null;
-  setUserAge: React.Dispatch<React.SetStateAction<number>>;
-  setUserGender: React.Dispatch<React.SetStateAction<string>>;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  setUserID: React.Dispatch<React.SetStateAction<string>>;
+  param: string | (string | null)[] | null;
+  pageNum: number;
 };
 
 const Introduction: React.FC<Props> = (props) => {
+  const [checkState, setCheckState] = useState(false);
 
-  const [fleaMarketExperience, setFleaMarketExperience] = React.useState("");
-  const [fleaMarketDuration, setFleaMarketDuration] = React.useState("");
-  const inputRef = useRef<HTMLInputElement>();
-  const [inputError, setInputError] = useState(false);
-
-  const fleaMarketOptions = ["買うだけ", "売るだけ", "両方", "なし"];
-  const fleaMarketDurationOptions = ["なし", "1ヶ月未満", "3ヶ月未満", "半年未満", "1年未満", "3年未満", "3年以上"];
-
-  <>
-  
-    // フリマアプリの利用有無の入力コントロールの追加
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-experience-label">フリマアプリの利用有無</InputLabel>
-      <Select
-        labelId="flea-market-experience-label"
-        id="flea-market-experience-select"
-        value={fleaMarketExperience}
-        label="フリマアプリの利用有無"
-        onChange={(event) => setFleaMarketExperience(event.target.value)}
-      >
-        {fleaMarketOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-    // フリマアプリ利用期間の入力コントロールの追加
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-duration-label">フリマアプリの利用期間</InputLabel>
-      <Select
-        labelId="flea-market-duration-label"
-        id="flea-market-duration-select"
-        value={fleaMarketDuration}
-        label="フリマアプリの利用期間"
-        onChange={(event) => setFleaMarketDuration(event.target.value)}
-      >
-        {fleaMarketDurationOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-  </>
-
-
-  const handleChangeGender = (event: SelectChangeEvent) => {
-    props.setUserGender(event.target.value as string);
-  };
-  const handleChangeAge = (e: any) => {
-    if (inputRef.current) {
-      const ref = inputRef.current;
-      if (!ref.validity.valid) {
-        setInputError(true);
-      } else {
-        setInputError(false);
-        props.setUserAge(e.target.value);
-      }
-    } 
-  };
-
-  // データベースパスを決定する関数
-  const determineDbPath = (age: number, gender: string): string | null => {
-    let dbPath = "";
-
-    if (20 <= age && age <= 29) {
-      dbPath = "users-20s";
-    } else if (30 <= age && age <= 39) {
-      dbPath = "users-30s";
-    } else if (40 <= age && age <= 49) {
-      dbPath = "users-40s";
-    } else if (50 <= age && age <= 59) {
-      dbPath = "users-50s";
-    } else if (60 <= age && age <= 69) {
-      dbPath = "users-60s";
-    } else {
-      return null; // 年齢が範囲外の場合、nullを返す
+  function fullScreen(target: any) {
+    //Chrome15+, Safari5.1+, Opera15+
+    if (target.webkitRequestFullscreen) {
+      target.webkitRequestFullscreen();
     }
-   
-    if (gender === "man") {
-      dbPath += "-m";
-    } else if (gender === "woman") {
-      dbPath += "-w";
-    } else {
-      return null; // 性別が範囲外の場合、nullを返す
+    //FF10+
+    else if (target.mozRequestFullScreen) {
+      target.mozRequestFullScreen();
     }
-
-    return dbPath;
-  }
-
-  // ユーザーデータを送信する関数
-  function setUserIDAndSend() {
-    const dbPath = determineDbPath(Number(props.userAge), props.userGender);
-
-    // console.log(dbPath)
-    if (!dbPath) {
-      // 年齢または性別が範囲外
-      props.setPageNum(10);
-      return;
+    //IE11+
+    else if (target.msRequestFullscreen) {
+      target.msRequestFullscreen();
     }
-    if (fleaMarketDuration === "なし" || fleaMarketExperience === "なし") {
-      // 年齢または性別が範囲外 or フリマアプリの利用無し
-      props.setPageNum(10);
-      return;
+    // HTML5 Fullscreen API仕様
+    else if (target.requestFullscreen) {
+      target.requestFullscreen();
     }
+    // 未対応
     else {
-      push(ref(firebaseDb, dbPath), {
-        userID: props.userID,
-        userAge: props.userAge,
-        userGender: props.userGender,
-        fleaMarketExperience: fleaMarketExperience,
-        fleaMarketDuration: fleaMarketDuration,
-      });
-      get(ref(firebaseDb, dbPath)).then((snapshot) => {console.log(snapshot.val())})
-      runTransaction(ref(firebaseDb, dbPath), (post) => {
-        console.log(post)
-        post.count++;
-        return post;
-      });       
-      props.setPageNum(11);
+      alert("ご利用のブラウザはフルスクリーン操作に対応していません");
     }
   }
-
-
+  const hndlChk1 = (event: any) => {
+    setCheckState(event.target.checked);
+  };
+  function setUserIDAndSend() {
+    fullScreen(document.documentElement);
+    props.setPageNum(2);
+  }
   return (
     <div>
-      <h1>参加者情報の入力</h1>
+      <h1>フリマアプリ上商品説明文の書き方の読み手の商品に対する印象の研究</h1>
       <p>
-        この実験は、Yahooクラウドソーシングを用いて行う実験です。Yahooクラウドソーシング以外からアクセスした人は、ページを閉じてください。
+        この実験は、Yahoo！クラウドソーシングを用いて行う実験です。Yahoo！クラウドソーシング以外からアクセスした人は、ページを閉じてください。
+        過去にYahoo！クラウドソーシングにおいて、本研究にご参加いただいたことのある方はご参加いただけません。
+      </p>
+      <p>（以下、前ページと同じ内容）</p>
+      <h2>▽この実験の目的・概要</h2>
+      <p>
+        この実験は「フリマアプリ上の取引におけるコミュニケーションの研究」の一環として実施されるものです。
       </p>
       <p>
-        Yahooクラウドソーシングからアクセスした人は、年齢、性別、フリマアプリの利用有無、フリマアプリの利用期間をそれぞれ入力してから、画面下の「次に進む」ボタンを押してください。
+        タスクでは、フリマアプリを模した実験サイト内で、さまざまな状況においてどのような判断を行うかを回答していただきます。
       </p>
       <p>
-        <span style={{ color: "gray" }}>version2022010082001?exp={props.param}</span>
-          
+        また、年齢や性別などをおたずねするアンケートや、タスクに対する理解度や集中度を調べる質問にもお答えいただきます。
       </p>
-      <TextField
-        id="outlined-basic"
-        label="年齢"
-        variant="outlined"
-        inputProps={{ maxLength: 2, pattern: "^[0-9]+" }}
-        onChange={(e) => handleChangeAge(e)}
-        error={inputError}
-        inputRef={inputRef}
-        helperText="半角数字で入力してください"
-        fullWidth
-        style={{ margin: "1em 0px" }}
-      ></TextField>
-      <FormControl fullWidth style={{ margin: "1em 0px" }}>
-        <InputLabel id="demo-simple-select-label">性別</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={props.userGender}
-          label="性別"
-          onChange={handleChangeGender}
-        >
-          <MenuItem value={"man"}>男性</MenuItem>
-          <MenuItem value={"woman"}>女性</MenuItem>
-          <MenuItem value={"others"}>どちらでもない / 回答しない</MenuItem>
-        </Select>
-      </FormControl>
-    {/* フリマアプリの利用有無の入力コントロール */}
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-experience-label">フリマアプリの利用有無</InputLabel>
-      <Select
-        labelId="flea-market-experience-label"
-        id="flea-market-experience-select"
-        value={fleaMarketExperience}
-        label="フリマアプリの利用有無"
-        onChange={(event) => setFleaMarketExperience(event.target.value)}
-      >
-        {fleaMarketOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-    {/* フリマアプリ利用期間の入力コントロール */}
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-duration-label">フリマアプリの利用期間</InputLabel>
-      <Select
-        labelId="flea-market-duration-label"
-        id="flea-market-duration-select"
-        value={fleaMarketDuration}
-        label="フリマアプリの利用期間"
-        onChange={(event) => setFleaMarketDuration(event.target.value)}
-      >
-        {fleaMarketDurationOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-      {props.userID != "" && props.userAge != "" && props.userGender != "" && (
+      <p>
+        タスクをしているときに少し疲れたり、飽きたりすることもあるかもしれませんが、基本的に強いストレスを感じるものではないと考えております。もし途中で不快になったときなどには、いつでも実験を中止できます（下記の「この実験への参加と途中辞退の自由」をご覧ください）。
+      </p>
+      <h2>▽この実験の所要時間</h2>
+      <p>
+        すべてのタスクを終えるのに個人差はありますが<b>3分程度</b>
+        かかる見込みです。なお、制限時間は15分です。15分を経過すると報酬を受けられません。
+      </p>
+      <h2>▽この実験に参加いただける方</h2>
+      <p>
+        フリマアプリを利用したことがあり、18歳以上の日本語を母国語とする方で、3分程度、集中してまじめにタスクに取り組んでいただける方。「集中してまじめにタスクに取り組むこと」とは「質問文をよく読んで質問に回答すること」を意味します。
+      </p>
+      <h2>▽実験参加者にもたらされる利益および不利益</h2>
+      <p>
+        この研究が、皆様に即座に利益をもたらす可能性は、現在のところ低いと考えられます。しかし、この研究は、今後の心理学研究の発展に寄与する重要な基礎的知見をもたらすことが期待されています。
+      </p>
+      <h2>▽この実験への参加と途中辞退の自由</h2>
+      <p>
+        この実験への参加はあなたの自由意思にゆだねられています。たとえタスクを開始した後でも、いつでも理由の如何を問わず、参加を取りやめることができます。ただし、タスクをすべて完了しなかった場合には、作業承認されない（報酬が支払われない）ことをご了承ください。
+      </p>
+      <h2>▽この実験のデータの利用</h2>
+      <p>
+        本実験のデータはまとめて統計的に処理され、その結果は学会発表や学術雑誌およびデータベース上等で公表されます。ただし、本実験では、あなた個人を特定できるような情報は収集されませんので、あなた個人の情報が公開されることはありません。なお、本実験で得られたデータの分析や研究にあたっては、研究目的達成に必要な範囲内において、本データを、株式会社メルカリ（下記に示す研究従事者に限ります）と共同利用します。共同利用における管理責任者は東京大学です。
+      </p>
+      <h2>▽その他の注意事項</h2>
+      <p>
+        上記に記載されている本実験の参加・実施にかかわる条件を満たしていない場合は、募集内容どおりにタスクを完了したとはみなせず、作業承認できないことをご了承ください。
+      </p>
+      <h2>▽お問い合わせ</h2>
+      <p>
+        疑問点などがありましたら、次のメールアドレスまでご連絡ください。
+        <br />
+        ahautasaari [at] g.ecc.u-tokyo.ac.jp
+        <br />
+        Hautasaari Ari　東京大学 大学院情報学環 特任准教授
+      </p>
+      <h2>▽研究従事者</h2>
+      <p>
+        Hautasaari Ari（研究責任者）:　東京大学 大学院情報学環 特任准教授
+        <br />
+        中條麟太郎:　東京大学 大学院学際情報学府 修士課程
+        <br />
+        藤原未雪:　株式会社メルカリ Researcher
+      </p>
+      <p>
+        <span style={{ color: "red" }}>
+          <b>
+            次に進むと、自動的にフルスクリーン表示になります。実験中はフルスクリーンを解除しないでください。
+          </b>
+        </span>
+      </p>
+      <p>
+        <span style={{ color: "gray" }}>version202212162240</span>
+      </p>
+      <FormGroup>
+        <FormControlLabel
+          control={<Checkbox onChange={hndlChk1} />}
+          style={{ margin: "16px 0px" }}
+          label={
+            <span style={{ fontWeight: "bold", fontSize: "1.2em" }}>
+              以上の内容に同意する
+            </span>
+          }
+        />
+      </FormGroup>
+      {props.userID != "" && (
         <div style={{ textAlign: "right" }}>
           <Button
             variant="contained"
             color="primary"
             className="button"
             onClick={setUserIDAndSend}
+            disabled={!checkState}
+            style={{ margin: "16px 0px" }}
           >
             次に進む
           </Button>
