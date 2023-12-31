@@ -13,16 +13,14 @@ type Props = {
 };
 
 const Check: React.FC<Props> = (props) => {
-  const [roleAnswer, setRoleAnswer] = React.useState("");
-  const [purposeAnswer, setPurposeAnswer] = React.useState("");
-
-  const [confidenceValue, setConfidenceValue] = React.useState("");
+  const [q1Answer, setQ1Answer] = React.useState("");
+  const [q2Answer, setQ2Answer] = React.useState("");
 
   const handleRoleChange = (e: any) => {
-    setRoleAnswer(e.target.value);
+    setQ1Answer(e.target.value);
   };
   const handlePurposeChange = (e: any) => {
-    setPurposeAnswer(e.target.value);
+    setQ2Answer(e.target.value);
   };
 
   return (
@@ -34,7 +32,7 @@ const Check: React.FC<Props> = (props) => {
         <br />
         「説明に戻る」をクリックすると、「あなたにしていただきたいこと」のページに戻れます。
       </p>
-      <h3>問1: あなたの役割は何ですか？</h3>
+      <h3>問1: タスク画面に並べられている２つの商品説明文はどのようなものですか？</h3>
       <FormControl>
         <RadioGroup
           aria-labelledby="demo-radio-buttons-group-label"
@@ -44,17 +42,17 @@ const Check: React.FC<Props> = (props) => {
           <FormControlLabel
             value="1"
             control={<Radio />}
-            label="フリマアプリで商品を出品する人"
+            label="異なる商品の紹介文であり、内容・表現が共に異なる"
           />
           <FormControlLabel
             value="2"
             control={<Radio />}
-            label="フリマアプリで商品を購入する人"
+            label="同じ商品の紹介文であり、内容・表現が共に異なる"
           />
           <FormControlLabel
             value="3"
             control={<Radio />}
-            label="フリマアプリの管理者"
+            label="同じ商品の紹介文であり、内容はほとんど同じだが表現が異なる"
           />
         </RadioGroup>
       </FormControl>
@@ -68,17 +66,17 @@ const Check: React.FC<Props> = (props) => {
           <FormControlLabel
             value="1"
             control={<Radio />}
-            label="出品者のプロフィールを見て、送信するコメントを選ぶ"
+            label="２つの商品説明文から、より魅力的な文章を選択する"
           />
           <FormControlLabel
             value="2"
             control={<Radio />}
-            label="商品の説明を見て、送信するコメントを選ぶ"
+            label="２つの商品説明文から、質問文の内容に従って片方を選択する"
           />
           <FormControlLabel
             value="3"
             control={<Radio />}
-            label="送信するコメントをランダムに選ぶ"
+            label="２つの商品説明文から、ランダムに片方を選択する"
           />
         </RadioGroup>
       </FormControl>
@@ -87,14 +85,14 @@ const Check: React.FC<Props> = (props) => {
           variant="contained"
           color="primary"
           className="button"
-          onClick={() => props.setPageNum(props.pageNum - 3)}
+          onClick={() => props.setPageNum(props.pageNum - 1)}
         >
           説明に戻る
         </Button>
 
         <Tooltip
           title={
-            roleAnswer == "2" && purposeAnswer == "1"
+            q1Answer == "3" && q2Answer == "2"
               ? ""
               : "全ての設問に正しい解答を選択すると、本番に進むことができます。"
           }
@@ -106,7 +104,7 @@ const Check: React.FC<Props> = (props) => {
               className=""
               onClick={() => props.setPageNum(props.pageNum + 1)}
               disabled={
-                roleAnswer == "2" && purposeAnswer == "1" ? false : true
+                q1Answer == "3" && q2Answer == "2" ? false : true
               }
             >
               本番に進む

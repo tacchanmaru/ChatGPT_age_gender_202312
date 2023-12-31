@@ -60,19 +60,19 @@ function App() {
           setPageNum={setPageNum}
         />
       )}
-      {pageNum === 5 && (
+      {pageNum === 2 && (
         <Explanation 
           setPageNum={setPageNum} 
           pageNum={pageNum}
         />
       )}
-      {pageNum === 9 && (
+      {pageNum === 3 && (
         <Check 
           setPageNum={setPageNum} 
           pageNum={pageNum}
         />
       )}
-      {pageNum === 2 && (
+      {pageNum === 4 && (
         <Exam 
           userID={userID} 
           setPageNum={setPageNum} 
@@ -83,7 +83,7 @@ function App() {
           userGender={userGender}
         />
       )}
-      {pageNum === 3 && (
+      {pageNum === 5 && (
         <div>
           <p>実験は以上で終了です。</p>
           <p>
