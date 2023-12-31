@@ -32,47 +32,6 @@ const Introduction: React.FC<Props> = (props) => {
   const fleaMarketOptions = ["買うだけ", "売るだけ", "両方", "なし"];
   const fleaMarketDurationOptions = ["なし", "1ヶ月未満", "3ヶ月未満", "半年未満", "1年未満", "3年未満", "3年以上"];
 
-  <>
-  
-    // フリマアプリの利用有無の入力コントロールの追加
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-experience-label">フリマアプリの利用有無</InputLabel>
-      <Select
-        labelId="flea-market-experience-label"
-        id="flea-market-experience-select"
-        value={fleaMarketExperience}
-        label="フリマアプリの利用有無"
-        onChange={(event) => setFleaMarketExperience(event.target.value)}
-      >
-        {fleaMarketOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-    // フリマアプリ利用期間の入力コントロールの追加
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-duration-label">フリマアプリの利用期間</InputLabel>
-      <Select
-        labelId="flea-market-duration-label"
-        id="flea-market-duration-select"
-        value={fleaMarketDuration}
-        label="フリマアプリの利用期間"
-        onChange={(event) => setFleaMarketDuration(event.target.value)}
-      >
-        {fleaMarketDurationOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-  </>
-
-
   const handleChangeGender = (event: SelectChangeEvent) => {
     props.setUserGender(event.target.value as string);
   };

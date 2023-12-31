@@ -38,7 +38,7 @@ function App() {
 
   return (
     <div className="App">
-        {pageNum === 8 && (
+        {pageNum === 1 && (
           <Introduction
             userID={userID}
             setUserID={setUserID}
@@ -47,7 +47,7 @@ function App() {
             pageNum={pageNum}
           />
         )}
-      {pageNum === 1 && (
+      {pageNum === 8 && (
         <Questionare
           userID={userID}
           userAge = {userAge}
