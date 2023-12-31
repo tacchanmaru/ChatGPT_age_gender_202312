@@ -16,6 +16,7 @@ type Props = {
   userAge: string;
   userGender: string;
   param: string | (string | null)[] | null;
+  pageNum: number;
   setUserAge: React.Dispatch<React.SetStateAction<number>>;
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
@@ -123,12 +124,12 @@ const Introduction: React.FC<Props> = (props) => {
     // console.log(dbPath)
     if (!dbPath) {
       // 年齢または性別が範囲外
-      props.setPageNum(10);
+      props.setPageNum(99);
       return;
     }
     if (fleaMarketDuration === "なし" || fleaMarketExperience === "なし") {
       // 年齢または性別が範囲外 or フリマアプリの利用無し
-      props.setPageNum(10);
+      props.setPageNum(99);
       return;
     }
     else {
@@ -141,7 +142,7 @@ const Introduction: React.FC<Props> = (props) => {
       }).then((snapshot) => {
         get(child(ref(firebaseDb), dbPath)).then((snapshot) => {
           props.setDbCount(Object.keys(snapshot.val()).length);
-          props.setPageNum(11);
+          props.setPageNum(() => props.pageNum + 1);
         })
       });
     }

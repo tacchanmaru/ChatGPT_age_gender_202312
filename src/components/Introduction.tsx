@@ -42,6 +42,7 @@ const Introduction: React.FC<Props> = (props) => {
   };
   function setUserIDAndSend() {
     fullScreen(document.documentElement);
+    // props.setPageNum(() => props.pageNum + 1);
     props.setPageNum(2);
   }
   return (
