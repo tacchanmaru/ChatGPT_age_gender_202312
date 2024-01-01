@@ -43,7 +43,6 @@ function App() {
           userID={userID}
           setUserID={setUserID}
           setPageNum={setPageNum}
-          param={query["exp"]}
           pageNum={pageNum}
         />
       )}
@@ -52,7 +51,6 @@ function App() {
           userID={userID}
           userAge = {userAge}
           userGender= {userGender}
-          param={query["exp"]}
           pageNum={pageNum}
           setDbCount={setDbCount}
           setUserAge = {setUserAge}

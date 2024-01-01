@@ -8,7 +8,6 @@ type Props = {
   userID: string;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
   setUserID: React.Dispatch<React.SetStateAction<string>>;
-  param: string | (string | null)[] | null;
   pageNum: number;
 };
 

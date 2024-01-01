@@ -15,7 +15,6 @@ type Props = {
   setDbCount: React.Dispatch<React.SetStateAction<number>>;
   userAge: string;
   userGender: string;
-  param: string | (string | null)[] | null;
   pageNum: number;
   setUserAge: React.Dispatch<React.SetStateAction<number>>;
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
