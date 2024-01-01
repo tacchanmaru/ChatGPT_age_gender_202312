@@ -95,3 +95,16 @@
   -webkit-transform: rotate(-35deg);
   transform: rotate(-35deg);
 }
+
+.product-description{
+  width: 45%;
+  padding: 0.5em 1em;
+  margin: 2em 0;
+  font-weight: bold;
+  border: solid 2px #000000;
+}
+
+.flex-product-description{
+  display: flex;
+  justify-content: space-between;
+}

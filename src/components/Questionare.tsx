@@ -49,18 +49,18 @@ const Introduction: React.FC<Props> = (props) => {
 
   // データベースパスを決定する関数
   const determineDbPath = (age: number, gender: string): string | null => {
-    let dbPath = "";
+    let dbPath = "users/";
 
     if (20 <= age && age <= 29) {
-      dbPath = "users/20s";
+      dbPath += "20s";
     } else if (30 <= age && age <= 39) {
-      dbPath = "users/30s";
+      dbPath += "30s";
     } else if (40 <= age && age <= 49) {
-      dbPath = "users/40s";
+      dbPath += "40s";
     } else if (50 <= age && age <= 59) {
-      dbPath = "users/50s";
+      dbPath += "50s";
     } else if (60 <= age && age <= 69) {
-      dbPath = "users/60s";
+      dbPath += "60s";
     } else {
       return null; // 年齢が範囲外の場合、nullを返す
     }
@@ -118,7 +118,7 @@ const Introduction: React.FC<Props> = (props) => {
         Yahooクラウドソーシングからアクセスした人は、年齢、性別、フリマアプリの利用有無、フリマアプリの利用期間をそれぞれ入力してから、画面下の「次に進む」ボタンを押してください。
       </p>
       <p>
-        <span style={{ color: "gray" }}>version2022010082001?exp={props.param}</span>
+        <span style={{ color: "gray" }}>version20231231</span>
           
       </p>
       <TextField

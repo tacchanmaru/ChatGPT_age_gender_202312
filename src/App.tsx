@@ -38,16 +38,16 @@ function App() {
 
   return (
     <div className="App">
-        {pageNum === 1 && (
-          <Introduction
-            userID={userID}
-            setUserID={setUserID}
-            setPageNum={setPageNum}
-            param={query["exp"]}
-            pageNum={pageNum}
-          />
-        )}
-      {pageNum === 8 && (
+      {pageNum === 1 && (
+        <Introduction
+          userID={userID}
+          setUserID={setUserID}
+          setPageNum={setPageNum}
+          param={query["exp"]}
+          pageNum={pageNum}
+        />
+      )}
+      {pageNum === 2 && (
         <Questionare
           userID={userID}
           userAge = {userAge}
@@ -60,30 +60,29 @@ function App() {
           setPageNum={setPageNum}
         />
       )}
-      {pageNum === 2 && (
+      {pageNum === 3 && (
         <Explanation 
           setPageNum={setPageNum} 
           pageNum={pageNum}
         />
       )}
-      {pageNum === 3 && (
+      {pageNum === 4 && (
         <Check 
           setPageNum={setPageNum} 
           pageNum={pageNum}
         />
       )}
-      {pageNum === 4 && (
+      {pageNum === 5 && (
         <Exam 
           userID={userID} 
           setPageNum={setPageNum} 
           pageNum={pageNum} 
-          param={query["exp"]}
           dbCount={dbCount}
           userAge={userAge}
           userGender={userGender}
         />
       )}
-      {pageNum === 5 && (
+      {pageNum === 6 && (
         <div>
           <p>実験は以上で終了です。</p>
           <p>
