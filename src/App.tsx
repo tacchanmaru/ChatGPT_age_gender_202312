@@ -37,68 +37,73 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      {pageNum === 1 && (
-        <Introduction
-          userID={userID}
-          setUserID={setUserID}
-          setPageNum={setPageNum}
-          pageNum={pageNum}
-        />
-      )}
-      {pageNum === 2 && (
-        <Questionare
-          userID={userID}
-          userAge = {userAge}
-          userGender= {userGender}
-          pageNum={pageNum}
-          setDbCount={setDbCount}
-          setUserAge = {setUserAge}
-          setUserGender = {setUserGender}
-          setPageNum={setPageNum}
-        />
-      )}
-      {pageNum === 3 && (
-        <Explanation 
-          setPageNum={setPageNum} 
-          pageNum={pageNum}
-        />
-      )}
-      {pageNum === 4 && (
-        <Check 
-          setPageNum={setPageNum} 
-          pageNum={pageNum}
-        />
-      )}
-      {pageNum === 5 && (
-        <Exam 
-          userID={userID} 
-          setPageNum={setPageNum} 
-          pageNum={pageNum} 
-          dbCount={dbCount}
-          userAge={userAge}
-          userGender={userGender}
-        />
-      )}
-      {pageNum === 6 && (
-        <div>
-          <p>実験は以上で終了です。</p>
-          <p>
-            以下のパスコードをYahooクラウドソージングに入力した上で、このページを閉じてください。
-          </p>
+    <>
+      <div className="App_small">
+        この実験を行うためには、ブラウザの横幅が900px以上である必要があります。
+      </div>
+      <div className="App">
+        {pageNum === 1 && (
+          <Introduction
+            userID={userID}
+            setUserID={setUserID}
+            setPageNum={setPageNum}
+            pageNum={pageNum}
+          />
+        )}
+        {pageNum === 2 && (
+          <Questionare
+            userID={userID}
+            userAge = {userAge}
+            userGender= {userGender}
+            pageNum={pageNum}
+            setDbCount={setDbCount}
+            setUserAge = {setUserAge}
+            setUserGender = {setUserGender}
+            setPageNum={setPageNum}
+          />
+        )}
+        {pageNum === 3 && (
+          <Explanation 
+            setPageNum={setPageNum} 
+            pageNum={pageNum}
+          />
+        )}
+        {pageNum === 4 && (
+          <Check 
+            setPageNum={setPageNum} 
+            pageNum={pageNum}
+          />
+        )}
+        {pageNum === 5 && (
+          <Exam 
+            userID={userID} 
+            setPageNum={setPageNum} 
+            pageNum={pageNum} 
+            dbCount={dbCount}
+            userAge={userAge}
+            userGender={userGender}
+          />
+        )}
+        {pageNum === 6 && (
+          <div>
+            <p>実験は以上で終了です。</p>
+            <p>
+              以下のパスコードをYahooクラウドソージングに入力した上で、このページを閉じてください。
+            </p>
 
-          <p>KQpQyFp4Fk</p>
-        </div>
-      )}
-      {pageNum ===  99 && (
-        <div>
-          <p>あなたは実験の対象ではありません</p>
-          <p>
-            このページを閉じてください。
-          </p>
-        </div>
-      )}
-    </div>
+            <p>KQpQyFp4Fk</p>
+          </div>
+        )}
+        {pageNum ===  99 && (
+          <div>
+            <p>あなたは実験の対象ではありません</p>
+            <p>
+              このページを閉じてください。
+            </p>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 

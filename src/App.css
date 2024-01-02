@@ -1,8 +1,23 @@
-.App {
-  /* max-width: fit-content; */
-  width:900px;
-  margin:auto
+@media (max-width: 900px) {
+  .App {
+    display: none;
+  }
+  .App_small {
+    display: block;
+  }
 }
+
+@media (min-width: 900px) {
+  .App {
+    /* max-width: fit-content; */
+    width:900px;
+    margin:auto
+  }
+  .App_small{
+    display: none;
+  }
+}
+
 .Scale{
   text-align: center;
   display: flex;
