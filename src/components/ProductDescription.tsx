@@ -88,9 +88,11 @@ const ProductDescription: React.FC<Props> = (props) => {
     <div className="flex-product-description">
       <div className="product-description">
         {text_with_space(product_description("left"))}
+        //toggle
       </div>
       <div className="product-description">
         {text_with_space(product_description("right"))}
+        //toggle
       </div>
     </div>
   );

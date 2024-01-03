@@ -20,7 +20,7 @@ type Props = {
 };
 
 const Exam: React.FC<Props> = (props) => {
-
+  
   const [attractiveValue, setAttractiveValue] = React.useState("");
   const [politeValue, setPoliteValue] = React.useState("");
   const [trustValue, setTrustValue] = React.useState("");
