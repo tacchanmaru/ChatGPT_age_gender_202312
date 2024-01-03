@@ -7,7 +7,8 @@ import Introduction from "./components/Introduction";
 import Questionare from "./components/Questionare";
 import Explanation from "./components/Explanation";
 import Check from "./components/Check";
-import Exam from "./components/Exam";
+import Exam1 from "./components/Exam1";
+import Exam2 from "./components/Exam2";
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -78,7 +79,15 @@ function App() {
           />
         )}
         {pageNum === 5 && (
-          <Exam 
+          <Exam1
+            setPageNum={setPageNum} 
+            pageNum={pageNum} 
+            dbCount={dbCount}
+            userGender={userGender}
+          />
+        )}
+        {pageNum === 6 && (
+          <Exam2 
             userID={userID} 
             setPageNum={setPageNum} 
             pageNum={pageNum} 
@@ -87,7 +96,7 @@ function App() {
             userGender={userGender}
           />
         )}
-        {pageNum === 6 && (
+        {pageNum === 7 && (
           <div>
             <p>実験は以上で終了です。</p>
             <p>
