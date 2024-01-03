@@ -10,7 +10,10 @@ import { getDatabase, ref, set, push, runTransaction, child, get } from "firebas
 import { firebaseDb } from "../firebase/index.js";
 
 
+
 type Props = {
+  yahooAge: string | (string | null)[] | null;
+  yahooGender: string | (string | null)[] | null;
   userID: string;
   setDbCount: React.Dispatch<React.SetStateAction<number>>;
   userAge: string;
@@ -22,6 +25,8 @@ type Props = {
 };
 
 const Introduction: React.FC<Props> = (props) => {
+
+
 
   const [fleaMarketExperience, setFleaMarketExperience] = React.useState("");
   const [fleaMarketDuration, setFleaMarketDuration] = React.useState("");
@@ -45,6 +50,12 @@ const Introduction: React.FC<Props> = (props) => {
       }
     } 
   };
+
+
+  const  flooredAge = (age: number) => {
+    // 切り捨て
+    return String(Math.floor(age / 10) * 10);
+  }
 
   // データベースパスを決定する関数
   const determineDbPath = (age: number, gender: string): string | null => {
@@ -82,6 +93,12 @@ const Introduction: React.FC<Props> = (props) => {
     // console.log(dbPath)
     if (!dbPath) {
       // 年齢または性別が範囲外
+      props.setPageNum(99);
+      return;
+    }
+    if (props.yahooAge !== flooredAge(Number(props.userAge)) || props.yahooGender !== props.userGender) {
+      // クラウドソーシングと、年齢または性別が異なる
+      console.log(flooredAge(Number(props.yahooAge)));
       props.setPageNum(99);
       return;
     }

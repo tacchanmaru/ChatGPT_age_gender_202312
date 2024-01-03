@@ -186,20 +186,22 @@ const Exam: React.FC<Props> = (props) => {
               />
             </RadioGroup>
           </FormControl>
-          {(attractiveValue != "" && politeValue != "" && trustValue != "") && (
-            <div style={{ textAlign: "right" }}>
-              <Button
-                variant="contained"
-                color="primary"
-                className="Button"
-                onClick={() => {
-                  sendDataAndNext();
-                }}
-              >
-                次に進む
-              </Button>
-            </div>
-          )}
+          <div style={{ textAlign: "right" }}>
+            <Button style={{ margin: "1em 0px" }}
+            variant="contained"
+            color="primary"
+            className="Button"
+            onClick={() => {
+              sendDataAndNext();
+            }}
+            disabled={
+              attractiveValue !== "" && politeValue !== "" && trustValue !== "" ? false : true
+            }
+          >
+            次に進む
+          </Button>
+          </div>
+
         </div>
       </div>
     </div>

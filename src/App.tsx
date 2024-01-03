@@ -24,6 +24,7 @@ function App() {
 
 
   useEffect(() => {
+    console.log(query)
     var userID = localStorage.getItem("userID");
     if (userID == null) {
       userID = uuidv4();
@@ -52,6 +53,8 @@ function App() {
         )}
         {pageNum === 2 && (
           <Questionare
+            yahooAge={query.yahoo_age}
+            yahooGender= {query.yahoo_gender}
             userID={userID}
             userAge = {userAge}
             userGender= {userGender}
