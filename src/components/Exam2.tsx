@@ -139,7 +139,7 @@ const Exam2: React.FC<Props> = (props) => {
               </RadioGroup>
             </FormControl>
             <div style={{ textAlign: "right" }}>
-              <Button
+              <Button style={{ margin: "1em 0px" }}
                 variant="contained"
                 color="primary"
                 className="Button"
@@ -179,7 +179,7 @@ const Exam2: React.FC<Props> = (props) => {
               </RadioGroup>
             </FormControl>
             <div style={{ textAlign: "right" }}>
-              <Button
+              <Button style={{ margin: "1em 0px" }}
                 variant="contained"
                 color="primary"
                 className="Button"
