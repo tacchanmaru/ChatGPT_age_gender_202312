@@ -46,8 +46,6 @@ function App() {
       <div className="App">
         {pageNum === 1 && (
           <Introduction
-            userID={userID}
-            setUserID={setUserID}
             setPageNum={setPageNum}
             pageNum={pageNum}
           />

@@ -5,9 +5,7 @@ import FormGroup from "@mui/material/FormGroup";
 import { Checkbox, TextField } from "@mui/material";
 
 type Props = {
-  userID: string;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
-  setUserID: React.Dispatch<React.SetStateAction<string>>;
   pageNum: number;
 };
 
@@ -39,7 +37,7 @@ const Introduction: React.FC<Props> = (props) => {
   const hndlChk1 = (event: any) => {
     setCheckState(event.target.checked);
   };
-  function setUserIDAndSend() {
+  function forceFullScrean() {
     fullScreen(document.documentElement);
     props.setPageNum(() => props.pageNum + 1);
   }
@@ -113,9 +111,6 @@ const Introduction: React.FC<Props> = (props) => {
           </b>
         </span>
       </p>
-      <p>
-        <span style={{ color: "gray" }}>version20231231</span>
-      </p>
       <FormGroup>
         <FormControlLabel
           control={<Checkbox onChange={hndlChk1} />}
@@ -127,20 +122,18 @@ const Introduction: React.FC<Props> = (props) => {
           }
         />
       </FormGroup>
-      {props.userID != "" && (
-        <div style={{ textAlign: "right" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className="button"
-            onClick={setUserIDAndSend}
-            disabled={!checkState}
-            style={{ margin: "16px 0px" }}
-          >
-            次に進む
-          </Button>
-        </div>
-      )}
+      <div style={{ textAlign: "right" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          className="button"
+          onClick={forceFullScrean}
+          disabled={!checkState}
+          style={{ margin: "16px 0px" }}
+        >
+          次に進む
+        </Button>
+      </div>
     </div>
   );
 };
