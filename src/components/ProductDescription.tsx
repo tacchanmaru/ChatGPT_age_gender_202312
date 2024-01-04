@@ -4,6 +4,7 @@ type Props = {
   userGender: string;
   dbCount: number;
   progressNum: number;
+  attractiveValue: string;
   setAttractiveValue: React.Dispatch<React.SetStateAction<string>>;
   setPoliteValue: React.Dispatch<React.SetStateAction<string>>;
   setTrustValue: React.Dispatch<React.SetStateAction<string>>;
@@ -96,6 +97,32 @@ const ProductDescription: React.FC<Props> = (props) => {
     }
   }
 
+  
+
+  function changeColorLeft() {
+    const buttonLeft = document.getElementById("product-description-left");
+    const buttonRight = document.getElementById("product-description-right");
+    
+    if(!buttonLeft?.classList.contains("clicked")){
+      buttonLeft?.classList.add("clicked");
+    }
+    if(buttonRight?.classList.contains("clicked")){
+      buttonRight?.classList.remove("clicked");
+    }
+  }
+
+  function changeColorRight() {
+    const buttonLeft = document.getElementById("product-description-left");
+    const buttonRight = document.getElementById("product-description-right");
+    
+    if(!buttonRight?.classList.contains("clicked")){
+      buttonRight?.classList.add("clicked");
+    }
+    if(buttonLeft?.classList.contains("clicked")){
+      buttonLeft?.classList.remove("clicked");
+    }
+  }
+
   return (
     <div>
       {props.progressNum === 0 && (
@@ -108,55 +135,35 @@ const ProductDescription: React.FC<Props> = (props) => {
           </div>
         </div>
       )}
-      {props.progressNum === 1 && (
+      {props.progressNum !== 0 && (
         <div className="flex-product-description">
-          <div className="product-description-click"
-               onClick={() => {
+          <div id="product-description-left"
+            onClick={() => {
+              changeColorLeft();
+
+              if (props.progressNum === 1){
                 props.setAttractiveValue(is20sor60s("left"));
-              }}
-          >
-            {text_with_space(product_description("left"))}
-          </div>
-          <div className="product-description-click"
-               onClick={() => {
-                 props.setAttractiveValue(is20sor60s("right"));
-               }}
-          >
-            {text_with_space(product_description("right"))}
-          </div>
-        </div>
-      )}
-      {props.progressNum === 2 && (
-        <div className="flex-product-description">
-          <div className="product-description-click"
-               onClick={() => {
+              } else if (props.progressNum === 2){
                 props.setPoliteValue(is20sor60s("left"));
-              }}
-          >
-            {text_with_space(product_description("left"))}
-          </div>
-          <div className="product-description-click"
-               onClick={() => {
-                 props.setPoliteValue(is20sor60s("right"));
-               }}
-          >
-            {text_with_space(product_description("right"))}
-          </div>
-        </div>
-      )}
-      {props.progressNum === 3 && (
-        <div className="flex-product-description">
-          <div className="product-description-click"
-               onClick={() => {
+              } else {
                 props.setTrustValue(is20sor60s("left"));
-              }}
+              }
+            }}
           >
             {text_with_space(product_description("left"))}
           </div>
-          <div className="product-description-click"
-               onClick={() => {
-                 props.setTrustValue(is20sor60s("right"));
-               }}
+          <div id="product-description-right"
+            onClick={() => {
+              changeColorRight();
+
+              if (props.progressNum === 1){
+                props.setAttractiveValue(is20sor60s("right"));
+              } else if (props.progressNum === 2){
+                props.setPoliteValue(is20sor60s("right"));
+              } else {
+                props.setTrustValue(is20sor60s("right"));
+              }
+            }}
           >
             {text_with_space(product_description("right"))}
           </div>

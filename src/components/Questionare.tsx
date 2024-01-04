@@ -5,6 +5,9 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { TextField } from "@mui/material";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormGroup from "@mui/material/FormGroup";
+import Checkbox from "@mui/material/Checkbox";
 
 import { getDatabase, ref, set, push, runTransaction, child, get } from "firebase/database";
 import { firebaseDb } from "../firebase/index.js";
@@ -26,7 +29,7 @@ type Props = {
 
 const Introduction: React.FC<Props> = (props) => {
 
-
+  const [checkState, setCheckState] = useState(false);
 
   const [fleaMarketExperience, setFleaMarketExperience] = React.useState("");
   const [fleaMarketDuration, setFleaMarketDuration] = React.useState("");
@@ -51,6 +54,9 @@ const Introduction: React.FC<Props> = (props) => {
     } 
   };
 
+  const hndlChk1 = (event: any) => {
+    setCheckState(event.target.checked);
+  };
 
   const  flooredAge = (age: number) => {
     // 切り捨て
@@ -163,54 +169,70 @@ const Introduction: React.FC<Props> = (props) => {
           <MenuItem value={"others"}>どちらでもない / 回答しない</MenuItem>
         </Select>
       </FormControl>
-    {/* フリマアプリの利用有無の入力コントロール */}
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-experience-label">フリマアプリの利用有無</InputLabel>
-      <Select
-        labelId="flea-market-experience-label"
-        id="flea-market-experience-select"
-        value={fleaMarketExperience}
-        label="フリマアプリの利用有無"
-        onChange={(event) => setFleaMarketExperience(event.target.value)}
-      >
-        {fleaMarketOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+      {/* フリマアプリの利用有無の入力コントロール */}
+      <FormControl fullWidth style={{ margin: "1em 0px" }}>
+        <InputLabel id="flea-market-experience-label">フリマアプリの利用有無</InputLabel>
+        <Select
+          labelId="flea-market-experience-label"
+          id="flea-market-experience-select"
+          value={fleaMarketExperience}
+          label="フリマアプリの利用有無"
+          onChange={(event) => setFleaMarketExperience(event.target.value)}
+        >
+          {fleaMarketOptions.map((option, index) => (
+            <MenuItem key={index} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      {/* フリマアプリ利用期間の入力コントロール */}
+      <FormControl fullWidth style={{ margin: "1em 0px" }}>
+        <InputLabel id="flea-market-duration-label">フリマアプリ利用期間</InputLabel>
+        <Select
+          labelId="flea-market-duration-label"
+          id="flea-market-duration-select"
+          value={fleaMarketDuration}
+          label="フリマアプリ利用期間"
+          onChange={(event) => setFleaMarketDuration(event.target.value)}
+        >
+          {fleaMarketDurationOptions.map((option, index) => (
+            <MenuItem key={index} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
 
-    {/* フリマアプリ利用期間の入力コントロール */}
-    <FormControl fullWidth style={{ margin: "1em 0px" }}>
-      <InputLabel id="flea-market-duration-label">フリマアプリの利用期間</InputLabel>
-      <Select
-        labelId="flea-market-duration-label"
-        id="flea-market-duration-select"
-        value={fleaMarketDuration}
-        label="フリマアプリの利用期間"
-        onChange={(event) => setFleaMarketDuration(event.target.value)}
-      >
-        {fleaMarketDurationOptions.map((option, index) => (
-          <MenuItem key={index} value={option}>
-            {option}
-          </MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
-      {props.userID != "" && props.userAge != "" && props.userGender != "" && (
-        <div style={{ textAlign: "right" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            className="button"
-            onClick={setUserIDAndSend}
-          >
-            次に進む
-          </Button>
+      {(props.userAge !== "" && props.userGender !== "" &&fleaMarketDuration !== "" && fleaMarketExperience !== "") && (   
+        <div>
+          <FormGroup>
+            <FormControlLabel
+              control={<Checkbox onChange={hndlChk1} />}
+              style={{ margin: "16px 0px" }}
+              label={
+                <span style={{ fontWeight: "bold", fontSize: "1.2em" 
+                }}>
+                  正しい情報を入力した
+                </span>
+              }
+            />
+          </FormGroup>
         </div>
       )}
+      <div style={{ textAlign: "right" }}>
+        <Button
+          variant="contained"
+          color="primary"
+          className="button"
+          onClick={setUserIDAndSend}
+          disabled={!checkState}
+          style={{ margin: "16px 0px" }}
+        >
+          次に進む
+        </Button>
+      </div>
+      
     </div>
   );
 };

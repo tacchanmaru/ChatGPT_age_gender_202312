@@ -80,6 +80,17 @@ const Exam: React.FC<Props> = (props) => {
     }
   }
 
+  function resetColor() {
+    const buttonLeft = document.getElementById("product-description-left");
+    const buttonRight = document.getElementById("product-description-right");
+    
+    if(buttonLeft?.classList.contains("clicked")){
+      buttonLeft?.classList.remove("clicked");
+    }
+    if(buttonRight?.classList.contains("clicked")){
+      buttonRight?.classList.remove("clicked");
+    }
+  }
 
   return (
     <div className="picboxContainer">
@@ -87,10 +98,11 @@ const Exam: React.FC<Props> = (props) => {
       {progressNum === 0 && (
         <div>
           <h1>
-            ２つの商品説明文をよく読んでください。
+            2つの商品説明文をよく読んでください。
           </h1>
           <p>
-            同じ商品の説明文が２つ並んでいます。<b>2つの文章をよく読んでから、</b>次へ進んでください。
+            <b>同じ商品の</b>説明文が2つ並んでいます。<b>2つの文章をよく読んでから、</b>次へ進んでください。<br/>
+            次のページからは、<b>以下の商品説明文の比較に関する質問</b>に答えていただきます。
           </p>
         </div>
       )}
@@ -100,7 +112,8 @@ const Exam: React.FC<Props> = (props) => {
             質問文をよく読んで、回答してください。
           </h1>
           <p style={{ borderBottom: "2px dashed" }}> 
-            同じ商品の説明文が2つ並んでいます。<b>2つの文章をよく読み、比較をした上で、</b>質問文の内容に従ってそれぞれどちらかの文章を選んでください。<b>質問文は全てで3つあります。</b>
+            <b>前のページと</b>同じ商品説明文が2つ並べてあります。<br/>
+            <b>質問文の内容に従って比較をしてから、</b>どちらかの文章を選んでください。<b>質問文は全てで3つあります。</b>
           </p>
         </div>
       )}
@@ -125,6 +138,7 @@ const Exam: React.FC<Props> = (props) => {
       <ProductDescription
         userGender={props.userGender}
         dbCount={props.dbCount}
+        attractiveValue={attractiveValue}
         progressNum={progressNum}
         setAttractiveValue={setAttractiveValue}
         setPoliteValue={setPoliteValue}
@@ -154,6 +168,7 @@ const Exam: React.FC<Props> = (props) => {
               className="Button"
               onClick={() => {
                 setProgressNum(progressNum + 1);
+                resetColor();
               }}
               disabled={ attractiveValue !== "" ? false : true
               }
@@ -170,6 +185,7 @@ const Exam: React.FC<Props> = (props) => {
               className="Button"
               onClick={() => {
                 setProgressNum(progressNum + 1);
+                resetColor();
               }}
               disabled={ politeValue !== "" ? false : true
               }
