@@ -86,6 +86,7 @@ const Check: React.FC<Props> = (props) => {
           color="primary"
           className="button"
           onClick={() => props.setPageNum(props.pageNum - 1)}
+          style={{ margin: "16px 0px" }}
         >
           説明に戻る
         </Button>
@@ -106,6 +107,7 @@ const Check: React.FC<Props> = (props) => {
               disabled={
                 q1Answer == "3" && q2Answer == "2" ? false : true
               }
+              style={{ margin: "16px 0px" }}
             >
               本番に進む
             </Button>

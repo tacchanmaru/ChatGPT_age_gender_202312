@@ -92,6 +92,13 @@ const Exam: React.FC<Props> = (props) => {
     }
   }
 
+  const scrollTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
+
   return (
     <div className="picboxContainer">
       
@@ -153,6 +160,7 @@ const Exam: React.FC<Props> = (props) => {
               className="Button"
               onClick={() => {
                 setProgressNum(progressNum + 1);
+                scrollTop();
               }}
             >
               次に進む
@@ -168,6 +176,7 @@ const Exam: React.FC<Props> = (props) => {
               onClick={() => {
                 setProgressNum(progressNum + 1);
                 resetColor();
+                scrollTop();
               }}
               disabled={ attractiveValue !== "" ? false : true
               }
@@ -185,6 +194,7 @@ const Exam: React.FC<Props> = (props) => {
               onClick={() => {
                 setProgressNum(progressNum + 1);
                 resetColor();
+                scrollTop();
               }}
               disabled={ politeValue !== "" ? false : true
               }

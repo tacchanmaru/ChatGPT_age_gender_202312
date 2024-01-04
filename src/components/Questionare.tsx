@@ -213,7 +213,7 @@ const Introduction: React.FC<Props> = (props) => {
               label={
                 <span style={{ fontWeight: "bold", fontSize: "1.2em" 
                 }}>
-                  正しい情報を入力した
+                  正しい情報を入力した。
                 </span>
               }
             />
