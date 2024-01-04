@@ -6,6 +6,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+## 初期設定
+
+### `yarn install`
+プロジェクトの全ての依存関係をインストールするのに使用される。
+
+### `firebase init`
+中條先輩に詳しいことは聞く必要あり。
+firebaseプロジェクトを初期化
+先に、.firebasercや、database.rules.jsonなど書き換える必要あり
+
 
 ## ローカル環境実行
 
