@@ -7,8 +7,7 @@ import Introduction from "./components/Introduction";
 import Questionare from "./components/Questionare";
 import Explanation from "./components/Explanation";
 import Check from "./components/Check";
-import Exam1 from "./components/Exam1";
-import Exam2 from "./components/Exam2";
+import Exam from "./components/Exam";
 import { v4 as uuidv4 } from "uuid";
 
 
@@ -41,7 +40,7 @@ function App() {
   return (
     <>
       <div className="App_small">
-        この実験を行うためには、ブラウザの横幅が900px以上である必要があります。
+        この実験を行うためには、ブラウザの横幅が1100px以上である必要があります。
       </div>
       <div className="App">
         {pageNum === 1 && (
@@ -77,15 +76,7 @@ function App() {
           />
         )}
         {pageNum === 5 && (
-          <Exam1
-            setPageNum={setPageNum} 
-            pageNum={pageNum} 
-            dbCount={dbCount}
-            userGender={userGender}
-          />
-        )}
-        {pageNum === 6 && (
-          <Exam2 
+          <Exam
             userID={userID} 
             setPageNum={setPageNum} 
             pageNum={pageNum} 
@@ -94,14 +85,14 @@ function App() {
             userGender={userGender}
           />
         )}
-        {pageNum === 7 && (
+        {pageNum === 6 && (
           <div>
             <p>実験は以上で終了です。</p>
             <p>
               以下のパスコードをYahooクラウドソージングに入力した上で、このページを閉じてください。
             </p>
 
-            <p>KQpQyFp4Fk</p>
+            <p><b>KQpQyFp4Fk</b></p>
           </div>
         )}
         {pageNum ===  99 && (

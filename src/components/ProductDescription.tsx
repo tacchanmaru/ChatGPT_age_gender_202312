@@ -3,6 +3,10 @@ import React, { useEffect, useState, useRef } from "react";
 type Props = {
   userGender: string;
   dbCount: number;
+  progressNum: number;
+  setAttractiveValue: React.Dispatch<React.SetStateAction<string>>;
+  setPoliteValue: React.Dispatch<React.SetStateAction<string>>;
+  setTrustValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const ProductDescription: React.FC<Props> = (props) => {
@@ -84,14 +88,80 @@ const ProductDescription: React.FC<Props> = (props) => {
     }
   }
 
+  const is20sor60s = (position: string) => {
+    if (position === "left") {
+      return props.dbCount % 2 === 0 ? "20s" : "60s";
+    } else{
+      return props.dbCount % 2 === 0 ? "60s" : "20s";
+    }
+  }
+
   return (
-    <div className="flex-product-description">
-      <div className="product-description">
-        {text_with_space(product_description("left"))}
-      </div>
-      <div className="product-description">
-        {text_with_space(product_description("right"))}
-      </div>
+    <div>
+      {props.progressNum === 0 && (
+        <div className="flex-product-description">
+          <div className="product-description">
+            {text_with_space(product_description("left"))}
+          </div>
+          <div className="product-description">
+            {text_with_space(product_description("right"))}
+          </div>
+        </div>
+      )}
+      {props.progressNum === 1 && (
+        <div className="flex-product-description">
+          <div className="product-description-click"
+               onClick={() => {
+                props.setAttractiveValue(is20sor60s("left"));
+              }}
+          >
+            {text_with_space(product_description("left"))}
+          </div>
+          <div className="product-description-click"
+               onClick={() => {
+                 props.setAttractiveValue(is20sor60s("right"));
+               }}
+          >
+            {text_with_space(product_description("right"))}
+          </div>
+        </div>
+      )}
+      {props.progressNum === 2 && (
+        <div className="flex-product-description">
+          <div className="product-description-click"
+               onClick={() => {
+                props.setPoliteValue(is20sor60s("left"));
+              }}
+          >
+            {text_with_space(product_description("left"))}
+          </div>
+          <div className="product-description-click"
+               onClick={() => {
+                 props.setPoliteValue(is20sor60s("right"));
+               }}
+          >
+            {text_with_space(product_description("right"))}
+          </div>
+        </div>
+      )}
+      {props.progressNum === 3 && (
+        <div className="flex-product-description">
+          <div className="product-description-click"
+               onClick={() => {
+                props.setTrustValue(is20sor60s("left"));
+              }}
+          >
+            {text_with_space(product_description("left"))}
+          </div>
+          <div className="product-description-click"
+               onClick={() => {
+                 props.setTrustValue(is20sor60s("right"));
+               }}
+          >
+            {text_with_space(product_description("right"))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
