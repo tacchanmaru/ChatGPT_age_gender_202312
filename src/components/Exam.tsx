@@ -1,9 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
-import FormControl from "@mui/material/FormControl"
-import FormControlLabel from "@mui/material/FormControlLabel";
-import RadioGroup from "@mui/material/RadioGroup";
 
 import ProductDescription from "./ProductDescription";
 
@@ -17,6 +13,7 @@ type Props = {
   pageNum: number;
   dbCount: number;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  timeStamp: number;
 };
 
 const Exam: React.FC<Props> = (props) => {
@@ -66,6 +63,7 @@ const Exam: React.FC<Props> = (props) => {
     }
     else {
       push(ref(firebaseDb, dbPath), {
+        timeStamp: props.timeStamp,
         userID: props.userID,
         attractive: attractiveValue,
         polite: politeValue,

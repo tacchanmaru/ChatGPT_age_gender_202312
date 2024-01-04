@@ -16,6 +16,7 @@ function App() {
   const [dbCount, setDbCount] = React.useState<any>(0);
   const [userID, setUserID] = React.useState<any>("");
   const [userAge, setUserAge] = React.useState<any>("");
+  const [timeStamp, setTimeStamp] = React.useState<any>("");
   const [userGender, setUserGender] = React.useState<any>();
 
   
@@ -35,6 +36,10 @@ function App() {
       setUserID(userID);
       console.log(userID);
     }
+
+    let date = new Date();
+    let timeStamp = Math.floor( date.getTime() / 1000 );
+    setTimeStamp(timeStamp);
   }, []);
 
   return (
@@ -57,6 +62,7 @@ function App() {
             userAge = {userAge}
             userGender= {userGender}
             pageNum={pageNum}
+            timeStamp={timeStamp}
             setDbCount={setDbCount}
             setUserAge = {setUserAge}
             setUserGender = {setUserGender}
@@ -83,6 +89,7 @@ function App() {
             dbCount={dbCount}
             userAge={userAge}
             userGender={userGender}
+            timeStamp={timeStamp}
           />
         )}
         {pageNum === 6 && (

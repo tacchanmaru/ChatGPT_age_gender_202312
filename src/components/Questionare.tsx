@@ -25,6 +25,7 @@ type Props = {
   setUserAge: React.Dispatch<React.SetStateAction<number>>;
   setUserGender: React.Dispatch<React.SetStateAction<string>>;
   setPageNum: React.Dispatch<React.SetStateAction<number>>;
+  timeStamp: number;
 };
 
 const Introduction: React.FC<Props> = (props) => {
@@ -115,6 +116,7 @@ const Introduction: React.FC<Props> = (props) => {
     }
     else {
       push(ref(firebaseDb, dbPath), {
+        timeStamp: props.timeStamp,
         userID: props.userID,
         userAge: props.userAge,
         userGender: props.userGender,
