@@ -105,7 +105,7 @@ const Exam2: React.FC<Props> = (props) => {
         質問文をよく読んで、回答してください。
       </h1>
       <p> 
-        同じ商品の説明文が2つ並んでいます。<b>左から順に商品説明文1、商品説明文2とします。</b>2つの文章をよく読み、比較をした上で、以下の3つの質問文の内容に従ってそれぞれどちらかの文章を選んでください。
+        同じ商品の説明文が2つ並んでいます。<b>左から順に商品説明文1、商品説明文2とします。</b>2つの文章をよく読み、比較をした上で、質問文の内容に従ってそれぞれどちらかの文章を選んでください。<b>質問文は全てで3つあります。</b>
       </p>
 
       <ProductDescription
@@ -129,12 +129,12 @@ const Exam2: React.FC<Props> = (props) => {
                 <FormControlLabel
                   value={is20sor60s("left")}
                   control={<Radio />}
-                  label="商品説明文1"
+                  label="商品説明文1（左）"
                 />
                 <FormControlLabel
                   value={is20sor60s("right")}
                   control={<Radio />}
-                  label="商品説明文2"
+                  label="商品説明文2（右）"
                 />
               </RadioGroup>
             </FormControl>
@@ -169,12 +169,12 @@ const Exam2: React.FC<Props> = (props) => {
                 <FormControlLabel
                   value={is20sor60s("left")}
                   control={<Radio />}
-                  label="商品説明文1"
+                  label="商品説明文1（左）"
                 />
                 <FormControlLabel
                   value={is20sor60s("right")}
                   control={<Radio />}
-                  label="商品説明文2"
+                  label="商品説明文2（右）"
                 />
               </RadioGroup>
             </FormControl>
@@ -209,12 +209,12 @@ const Exam2: React.FC<Props> = (props) => {
                 <FormControlLabel
                   value={is20sor60s("left")}
                   control={<Radio />}
-                  label="商品説明文1"
+                  label="商品説明文1（左）"
                 />
                 <FormControlLabel
                   value={is20sor60s("right")}
                   control={<Radio />}
-                  label="商品説明文2"
+                  label="商品説明文2（右）"
                 />
               </RadioGroup>
             </FormControl>
