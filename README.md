@@ -33,6 +33,15 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 ### `firebase deploy`
 yarn global add serve、serve -s buildの代わり
 
+firebase Realtime Databaseのルールが書き換わり、permission deniedされてしてしまうので以下に書き換える
+
+{
+  "rules": {
+    ".read": true,  // 2023-12-27
+    ".write": true,  // 2023-12-27
+  }
+}
+
 
 ## あまり使いうこと無い
 
