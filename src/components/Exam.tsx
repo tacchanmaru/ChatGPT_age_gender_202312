@@ -102,7 +102,7 @@ const Exam: React.FC<Props> = (props) => {
           </h1>
           <p>
             <b>同じ商品の</b>説明文が2つ並んでいます。<b>2つの文章をよく読んでから、</b>次へ進んでください。<br/>
-            次のページからは、<b>以下の商品説明文の比較に関する質問</b>に答えていただきます。
+            次のページからは、<b>以下の商品説明文の比較に関する質問</b>に答えていただきます。<b>質問は全てで3つあります。</b>
           </p>
         </div>
       )}
@@ -112,24 +112,23 @@ const Exam: React.FC<Props> = (props) => {
             質問文をよく読んで、回答してください。
           </h1>
           <p style={{ borderBottom: "2px dashed" }}> 
-            <b>前のページと</b>同じ商品説明文が2つ並べてあります。<br/>
-            <b>質問文の内容に従って比較をしてから、</b>どちらかの文章を選んでください。<b>質問文は全てで3つあります。</b>
+            <b>前のページと</b>同じ商品説明文が2つ並べてあります。<b>質問文を読んで、改めて商品説明文を比較をしてから、</b>どちらかの文章をクリックしてください。文章をクリックすると枠が青くなります。<b>選んだ方の枠が青くなっていることを確認してから、</b>次へを押してください。
           </p>
         </div>
       )}
       <div>
         {progressNum == 1 && (
-          <h2 style={{ marginTop: "50px", textAlign: "center" }}>
+          <h2 style={{ marginTop: "30px", textAlign: "center" }}>
             Q1: どちらの文章が商品を購入する意欲をより強く感じさせますか？
           </h2>
         )}
         {progressNum == 2 && (
-          <h2 style={{ marginTop: "50px", textAlign: "center" }}>
+          <h2 style={{ marginTop: "30px", textAlign: "center" }}>
             Q2: どちらの製品の説明がより複数の類似した言葉やフレーズを含み、例を挙げて根拠を含むなどの条件を満たすと感じますか？
           </h2>
         )}
         {progressNum == 3 && (
-          <h2 style={{ marginTop: "50px", textAlign: "center" }}>
+          <h2 style={{ marginTop: "30px", textAlign: "center" }}>
             Q3: どちらの文章が商品の説明をより詳細にしていると感じますか？
           </h2>
         )}

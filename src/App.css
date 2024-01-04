@@ -150,7 +150,7 @@
 }
 
 #product-description-right.clicked{
-  border: solid 3px blue
+  border: solid 3px blue;
 }
 
 #product-description-right:hover{
