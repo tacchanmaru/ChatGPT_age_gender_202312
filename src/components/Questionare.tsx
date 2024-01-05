@@ -37,7 +37,7 @@ const Introduction: React.FC<Props> = (props) => {
   const inputRef = useRef<HTMLInputElement>();
   const [inputError, setInputError] = useState(false);
 
-  const fleaMarketOptions = ["買うだけ", "売るだけ", "両方", "なし"];
+  const fleaMarketOptions = ["なし", "買うだけ", "売るだけ", "両方"];
   const fleaMarketDurationOptions = ["なし", "1ヶ月未満", "3ヶ月未満", "半年未満", "1年未満", "3年未満", "3年以上"];
 
   const handleChangeGender = (event: SelectChangeEvent) => {
