@@ -48,37 +48,37 @@ const ProductDescription: React.FC<Props> = (props) => {
   }
 
   const product_description = (position: string) => {
-    if (props.userGender === "woman"  && props.dbCount % 3 === 0){
+    if (props.userGender === "woman"  && props.dbCount % 3 === 1){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_ladies_1
       } else {
         return elderly_ladies_1
       }
-    } else if (props.userGender === "woman"  && props.dbCount % 3 === 1){
+    } else if (props.userGender === "woman"  && props.dbCount % 3 === 2){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_ladies_2
       } else {
         return elderly_ladies_2
       }
-    } else if (props.userGender === "woman"  && props.dbCount % 3 === 2){
+    } else if (props.userGender === "woman"  && props.dbCount % 3 === 0){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_ladies_3
       } else {
         return elderly_ladies_3
       }
-    } else if (props.userGender === "man"  && props.dbCount % 3 === 0){
+    } else if (props.userGender === "man"  && props.dbCount % 3 === 1){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_mens_1
       } else {
         return elderly_mens_1
       }
-    } else if (props.userGender === "man"  && props.dbCount % 3 === 1){
+    } else if (props.userGender === "man"  && props.dbCount % 3 === 2){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_mens_2
       } else {
         return elderly_mens_2
       }
-    } else if (props.userGender === "man"  && props.dbCount % 3 === 2){
+    } else if (props.userGender === "man"  && props.dbCount % 3 === 0){
       if ((props.dbCount % 2 === 0 && position === "left") || (props.dbCount % 2 === 1 && position === "right")){
         return young_mens_3
       } else {

@@ -53,6 +53,17 @@ const Exam: React.FC<Props> = (props) => {
     return dbPath;
   }
 
+  // 商品idを返す関数
+  const getProductID = () => {
+    if (props.dbCount % 3 === 1) {
+      return "1";
+    } else if (props.dbCount % 3 === 2) {
+      return "2";
+    } else {
+      return "3";
+    }
+  }
+
   function sendDataAndNext() {
     const dbPath = determineDbPath(Number(props.userAge), props.userGender);
 
@@ -63,6 +74,7 @@ const Exam: React.FC<Props> = (props) => {
     }
     else {
       push(ref(firebaseDb, dbPath), {
+        productID: getProductID(),
         timeStamp: props.timeStamp,
         userID: props.userID,
         attractive: attractiveValue,
