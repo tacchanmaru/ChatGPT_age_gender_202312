@@ -141,10 +141,6 @@ const Introduction: React.FC<Props> = (props) => {
       <p>
         Yahooクラウドソーシングからアクセスした人は、年齢、性別、フリマアプリの利用有無、フリマアプリの利用期間をそれぞれ入力してから、画面下の「次に進む」ボタンを押してください。
       </p>
-      <p>
-        <span style={{ color: "gray" }}>version20231231</span>
-          
-      </p>
       <TextField
         id="outlined-basic"
         label="年齢"
