@@ -23,8 +23,18 @@ const Exam: React.FC<Props> = (props) => {
   const [politeValue, setPoliteValue] = React.useState("");
   const [trustValue, setTrustValue] = React.useState("");
 
+  const [examStartTime, setExamStartTime] = React.useState<number>(0);
+  var examEndTime: number;
 
-  // データベースパスを決定する関数
+  useEffect(() => {
+    let date = new Date();
+    let dataTime = Math.floor( date.getTime() / 1000 );
+    
+    setExamStartTime(dataTime);
+    
+  }, []);
+
+  // データベースパスを決定する関数a
   const determineDbPath = (age: number, gender: string): string | null => {
     let dbPath = "results/";
 
@@ -65,7 +75,17 @@ const Exam: React.FC<Props> = (props) => {
   }
 
   function sendDataAndNext() {
+    let date = new Date();
+    examEndTime = Math.floor( date.getTime() / 1000 );
+
     const dbPath = determineDbPath(Number(props.userAge), props.userGender);
+
+    console.log("props.timeStamp");
+    console.log(props.timeStamp);
+    console.log("examStartTime");
+    console.log(examStartTime);
+    console.log("examEndTime");
+    console.log(examEndTime);
 
     if (!dbPath) {
       // 年齢または性別が範囲外
@@ -74,6 +94,7 @@ const Exam: React.FC<Props> = (props) => {
     }
     else {
       push(ref(firebaseDb, dbPath), {
+        task_Period: examEndTime - examStartTime,
         productID: getProductID(),
         timeStamp: props.timeStamp,
         userID: props.userID,
@@ -86,7 +107,6 @@ const Exam: React.FC<Props> = (props) => {
       setTrustValue("");
 
       props.setPageNum(props.pageNum + 1);
-      console.log(props.pageNum);
     }
   }
 

@@ -25,7 +25,7 @@ function App() {
 
 
   useEffect(() => {
-    console.log("version: 2024/01/06/12:00")
+    console.log("version: 2024/0107/12:00")
     console.log(query)
     var userID = localStorage.getItem("userID");
     if (userID == null) {
