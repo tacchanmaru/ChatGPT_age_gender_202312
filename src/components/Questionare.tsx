@@ -1,4 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { getDatabase, ref, set, push, runTransaction, child, get } from "firebase/database";
+import { firebaseDb } from "../firebase/index.js";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -9,8 +11,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Checkbox from "@mui/material/Checkbox";
 
-import { getDatabase, ref, set, push, runTransaction, child, get } from "firebase/database";
-import { firebaseDb } from "../firebase/index.js";
+import determineDbPath from "./dbPath";
 
 
 
@@ -52,7 +53,7 @@ const Introduction: React.FC<Props> = (props) => {
         setInputError(false);
         props.setUserAge(e.target.value);
       }
-    } 
+    }
   };
 
   const hndlChk1 = (event: any) => {
@@ -64,65 +65,42 @@ const Introduction: React.FC<Props> = (props) => {
     return String(Math.floor(age / 10) * 10);
   }
 
-  // データベースパスを決定する関数
-  const determineDbPath = (age: number, gender: string): string | null => {
-    let dbPath = "users/";
-
-    if (20 <= age && age <= 29) {
-      dbPath += "20s";
-    } else if (30 <= age && age <= 39) {
-      dbPath += "30s";
-    } else if (40 <= age && age <= 49) {
-      dbPath += "40s";
-    } else if (50 <= age && age <= 59) {
-      dbPath += "50s";
-    } else if (60 <= age && age <= 69) {
-      dbPath += "60s";
-    } else {
-      return null; // 年齢が範囲外の場合、nullを返す
-    }
-   
-    if (gender === "man") {
-      dbPath += "-m";
-    } else if (gender === "woman") {
-      dbPath += "-w";
-    } else {
-      return null; // 性別が範囲外の場合、nullを返す
-    }
-
-    return dbPath;
-  }
-
   // ユーザーデータを送信する関数
   function setUserIDAndSend() {
-    const dbPath = determineDbPath(Number(props.userAge), props.userGender);
+    const dbPath = determineDbPath(Number(props.userAge), props.userGender, "users");
 
     // console.log(dbPath)
     if (!dbPath) {
       // 年齢または性別が範囲外
+      console.log("年齢または性別が範囲外")
       props.setPageNum(99);
       return;
     }
     if (props.yahooAge !== flooredAge(Number(props.userAge)) || props.yahooGender !== props.userGender) {
       // クラウドソーシングと、年齢または性別が異なる
-      console.log(flooredAge(Number(props.yahooAge)));
+      console.log("年齢または性別がqueryと異なる")
       props.setPageNum(99);
       return;
     }
     if (fleaMarketDuration === "なし" || fleaMarketExperience === "なし") {
       // 年齢または性別が範囲外 or フリマアプリの利用無し
+      console.log("フリマアプリの利用無し")
       props.setPageNum(99);
       return;
     }
-    else {
-      push(ref(firebaseDb, dbPath), {
-        timeStamp: props.timeStamp,
+    else {      
+      var usersDb = {
         userID: props.userID,
+        timeStamp: props.timeStamp,
         userAge: props.userAge,
         userGender: props.userGender,
         fleaMarketExperience: fleaMarketExperience,
         fleaMarketDuration: fleaMarketDuration,
-      }).then((snapshot) => {
+      }
+      
+      console.log("usersDb", usersDb);
+
+      push(ref(firebaseDb, dbPath), usersDb).then((snapshot) => {
         get(child(ref(firebaseDb), dbPath)).then((snapshot) => {
           props.setDbCount(Object.keys(snapshot.val()).length);
           props.setPageNum(() => props.pageNum + 1);

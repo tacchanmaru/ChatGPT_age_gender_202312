@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
+import { getDatabase, ref, set, push } from "firebase/database";
+import { firebaseDb } from "../firebase/index.js";
 import Button from "@mui/material/Button";
 
 import ProductDescription from "./ProductDescription";
-
-import { getDatabase, ref, set, push } from "firebase/database";
-import { firebaseDb } from "../firebase/index.js";
+import determineDbPath from "./dbPath";
 
 type Props = {
   userAge: string;
@@ -29,39 +29,9 @@ const Exam: React.FC<Props> = (props) => {
   useEffect(() => {
     let date = new Date();
     let dataTime = Math.floor( date.getTime() / 1000 );
-    
     setExamStartTime(dataTime);
-    
   }, []);
 
-  // データベースパスを決定する関数a
-  const determineDbPath = (age: number, gender: string): string | null => {
-    let dbPath = "results/";
-
-    if (20 <= age && age <= 29) {
-      dbPath += "20s";
-    } else if (30 <= age && age <= 39) {
-      dbPath += "30s";
-    } else if (40 <= age && age <= 49) {
-      dbPath += "40s";
-    } else if (50 <= age && age <= 59) {
-      dbPath += "50s";
-    } else if (60 <= age && age <= 69) {
-      dbPath += "60s";
-    } else {
-      return null; // 年齢が範囲外の場合、nullを返す
-    }
-   
-    if (gender === "man") {
-      dbPath += "-m";
-    } else if (gender === "woman") {
-      dbPath += "-w";
-    } else {
-      return null; // 性別が範囲外の場合、nullを返す
-    }
-
-    return dbPath;
-  }
 
   // 商品idを返す関数
   const getProductID = () => {
@@ -78,14 +48,7 @@ const Exam: React.FC<Props> = (props) => {
     let date = new Date();
     examEndTime = Math.floor( date.getTime() / 1000 );
 
-    const dbPath = determineDbPath(Number(props.userAge), props.userGender);
-
-    console.log("props.timeStamp");
-    console.log(props.timeStamp);
-    console.log("examStartTime");
-    console.log(examStartTime);
-    console.log("examEndTime");
-    console.log(examEndTime);
+    const dbPath = determineDbPath(Number(props.userAge), props.userGender, "results");
 
     if (!dbPath) {
       // 年齢または性別が範囲外
@@ -93,15 +56,19 @@ const Exam: React.FC<Props> = (props) => {
       return;
     }
     else {
-      push(ref(firebaseDb, dbPath), {
-        task_Period: examEndTime - examStartTime,
-        productID: getProductID(),
-        timeStamp: props.timeStamp,
+      var resultsDb = {
         userID: props.userID,
+        timeStamp: props.timeStamp,
+        productID: getProductID(),
         attractive: attractiveValue,
         polite: politeValue,
         trust: trustValue,
-      });
+        task_Period: examEndTime - examStartTime,
+      }
+
+      console.log("resultsDb", resultsDb);
+      push(ref(firebaseDb, dbPath), resultsDb);
+
       setAttractiveValue("");
       setPoliteValue("");
       setTrustValue("");
